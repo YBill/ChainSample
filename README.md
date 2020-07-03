@@ -15,5 +15,28 @@ ChainManager.INSTANCE.start(KEY);
 
 3、添加一个元素
 ```
-ChainManager.INSTANCE.add(KEY, lastChain);
+ChainManager.INSTANCE.add(KEY, chain);
+```
+
+每一个链元素需要继承 BaseChain，并重写serialNumber和handle方法
+```
+public class TestChain extends BaseChain {
+
+    public TestChain(Context context) {
+        super(context);
+    }
+
+    @Override
+    protected void handle() {
+        // 真正的执行
+        
+        handleNext(); // 执行下一个
+    }
+
+    @Override
+    protected int serialNumber() {
+        // 序号，优先级，越小优先级越高
+        return 100;
+    }
+}
 ```
