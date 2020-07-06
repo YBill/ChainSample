@@ -18,6 +18,11 @@ ChainManager.INSTANCE.start(KEY);
 ChainManager.INSTANCE.add(KEY, chain);
 ```
 
+4、链完成
+```
+ChainManager.INSTANCE.finish(KEY);
+```
+
 每一个链元素需要继承 BaseChain，并重写serialNumber和handle方法
 ```
 public class TestChain extends BaseChain {
