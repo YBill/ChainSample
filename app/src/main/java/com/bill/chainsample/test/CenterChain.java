@@ -1,24 +1,22 @@
 package com.bill.chainsample.test;
 
-import android.content.Context;
-
 import com.bill.chainsample.chain.BaseChain;
 
 public class CenterChain extends BaseChain {
 
-    public CenterChain(Context context) {
-        super(context);
+    public CenterChain() {
+
     }
 
     @Override
-    protected void handle() {
+    public void handle() {
         // Do someThing
 
         handleNext();
     }
 
     @Override
-    protected int serialNumber() {
+    public int serialNumber() {
         return 2;
     }
 }

@@ -3,24 +3,25 @@ package com.bill.chainsample.test;
 import android.content.Context;
 
 import com.bill.chainsample.chain.BaseChain;
-import com.bill.chainsample.chain.ChainManager;
 import com.bill.chainsample.dialog.TestDialog2;
 
 public class ThirdChain extends BaseChain {
 
+    private Context mContext;
+
     public ThirdChain(Context context) {
-        super(context);
+        this.mContext = context;
     }
 
     @Override
-    protected void handle() {
+    public void handle() {
         TestDialog2 dialog = new TestDialog2(mContext);
         dialog.show();
 
         dialog.setListener(new DefaultDialogListener() {
             @Override
             public void close() {
-                ChainManager.INSTANCE.finish(chainKey);
+                handleFinish();
             }
 
             @Override
@@ -31,7 +32,7 @@ public class ThirdChain extends BaseChain {
     }
 
     @Override
-    protected int serialNumber() {
+    public int serialNumber() {
         return 30;
     }
 }

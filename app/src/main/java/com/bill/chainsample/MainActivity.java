@@ -1,6 +1,7 @@
 package com.bill.chainsample;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ChainManager.INSTANCE.setChainSize(MAIN_KEY, 4);
+//        ChainManager.INSTANCE.setChainSize(MAIN_KEY, 4);
 
         BaseChain lastChain = new LastChain(this);
         ChainManager.INSTANCE.add(MAIN_KEY, lastChain);
@@ -29,15 +30,14 @@ public class MainActivity extends AppCompatActivity {
         BaseChain firstChain = new FirstChain(this);
         ChainManager.INSTANCE.add(MAIN_KEY, firstChain);
 
-        BaseChain thirdChain = new ThirdChain(this);
-        ChainManager.INSTANCE.add(MAIN_KEY, thirdChain);
-
+        BaseChain centerChain = new CenterChain();
+        ChainManager.INSTANCE.add(MAIN_KEY, centerChain);
     }
 
     public void handleClick(View view) {
-//        ChainManager.INSTANCE.start(MAIN_KEY);
+        BaseChain thirdChain = new ThirdChain(MainActivity.this);
+        ChainManager.INSTANCE.add(MAIN_KEY, thirdChain);
 
-        BaseChain centerChain = new CenterChain(this);
-        ChainManager.INSTANCE.add(MAIN_KEY, centerChain);
+        ChainManager.INSTANCE.start(MAIN_KEY);
     }
 }

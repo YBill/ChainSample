@@ -1,24 +1,28 @@
 package com.bill.chainsample.chain;
 
-import android.content.Context;
-
 public abstract class BaseChain {
 
-    protected Context mContext;
+    private String chainKey;
 
-    protected String chainKey;
+    private BaseChain nextHandle;
 
-    public BaseChain(Context context) {
-        mContext = context;
+    public abstract void handle();
+
+    public abstract int serialNumber();
+
+    public String getChainKey() {
+        return chainKey;
     }
 
-    protected BaseChain nextHandle;
+    public void setChainKey(String chainKey) {
+        this.chainKey = chainKey;
+    }
 
-    protected abstract void handle();
+    public void setNextHandle(BaseChain nextHandle) {
+        this.nextHandle = nextHandle;
+    }
 
-    protected abstract int serialNumber();
-
-    protected void handleNext() {
+    public void handleNext() {
         BaseChain lastHandle = null;
 
         if (nextHandle != null) {
@@ -31,6 +35,10 @@ public abstract class BaseChain {
         if (lastHandle == null) {
             ChainManager.INSTANCE.finish(chainKey);
         }
+    }
+
+    public void handleFinish() {
+        ChainManager.INSTANCE.finish(chainKey);
     }
 
 }

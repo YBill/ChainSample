@@ -19,20 +19,38 @@ public enum ChainManager {
     }
 
     public void finish(String chainKey) {
-        ArrayList<BaseChain> list = mChainQueue.get(chainKey);
+        mChainSizeQueue.remove(chainKey);
+
+        ArrayList<BaseChain> list = mChainQueue.remove(chainKey);
 
         if (list == null)
             return;
 
         for (BaseChain chain : list) {
-            chain.nextHandle = null;
+            chain.setNextHandle(null);
         }
 
         list.clear();
+        list = null;
 
-        mChainQueue.remove(chainKey);
+    }
 
-        mChainSizeQueue.remove(chainKey);
+    public BaseChain getChain(String chainKey, int serialNumber) {
+        if (!mChainQueue.containsKey(chainKey)) {
+            return null;
+        }
+
+        ArrayList<BaseChain> list = mChainQueue.get(chainKey);
+
+        if (list == null)
+            return null;
+
+        for (BaseChain chain : list) {
+            if (chain.serialNumber() == serialNumber)
+                return chain;
+        }
+
+        return null;
 
     }
 
@@ -48,7 +66,7 @@ public enum ChainManager {
             mChainQueue.put(chainKey, list);
         }
 
-        chain.chainKey = chainKey;
+        chain.setChainKey(chainKey);
         add(list, chain);
 
         if (checkStart(chainKey, list.size()))
@@ -96,7 +114,7 @@ public enum ChainManager {
         });
 
         for (int i = 1; i < list.size(); i++) {
-            list.get(i - 1).nextHandle = list.get(i);
+            list.get(i - 1).setNextHandle(list.get(i));
         }
 
     }

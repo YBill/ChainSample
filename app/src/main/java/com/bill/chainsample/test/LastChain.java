@@ -7,19 +7,21 @@ import com.bill.chainsample.dialog.TestDialog3;
 
 public class LastChain extends BaseChain {
 
+    private Context mContext;
+
     public LastChain(Context context) {
-        super(context);
+        this.mContext = context;
     }
 
     @Override
-    protected void handle() {
+    public void handle() {
         TestDialog3 dialog = new TestDialog3(mContext);
         dialog.show();
 
     }
 
     @Override
-    protected int serialNumber() {
+    public int serialNumber() {
         return 100;
     }
 }

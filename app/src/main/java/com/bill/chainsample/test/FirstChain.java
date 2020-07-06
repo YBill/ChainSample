@@ -7,12 +7,14 @@ import com.bill.chainsample.dialog.TestDialog1;
 
 public class FirstChain extends BaseChain {
 
+    private Context mContext;
+
     public FirstChain(Context context) {
-        super(context);
+        this.mContext = context;
     }
 
     @Override
-    protected void handle() {
+    public void handle() {
         TestDialog1 dialog = new TestDialog1(mContext);
         dialog.show();
 
@@ -25,7 +27,7 @@ public class FirstChain extends BaseChain {
     }
 
     @Override
-    protected int serialNumber() {
+    public int serialNumber() {
         return 1;
     }
 }
